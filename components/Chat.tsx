@@ -1,6 +1,6 @@
 import { cookies } from "next/headers"// import { getMessages } from '@/lib/data'
 import { redirect } from "next/navigation"
-import { createClient } from "@/supabase/server"
+import { createClient } from "@/lib/supabase/server"
 
 export default async function Chat() {
     const cookieStore = cookies()
