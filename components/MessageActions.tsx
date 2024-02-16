@@ -1,8 +1,7 @@
 'use client';
 
-import { formatDate } from '@/lib/utils';
-import Image from 'next/image';
-import { ScrollArea } from './ui/scroll-area';
+import { toast } from 'sonner';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,23 +13,27 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 import { useMessage } from '@/lib/store/messages';
 import { supabaseBrowser } from '@/lib/supabase/client';
-import { toast } from 'sonner';
-import { useUser } from '@/lib/store/user';
+
 import Message from './Message';
-import MessageOptions from './MessageOptions';
+import {
+  ScrollArea,
+  ScrollBar,
+  ScrollCorner,
+  ScrollThumb,
+  ScrollViewport,
+} from './ui/scroll-area';
 
 export default function DeleteAlert() {
+
   const actionMessage = useMessage((state) => state.actionMessage);
   const deleteMessage = useMessage((state) => state.deleteMessage);
-  const user = useUser((state) => state.user);
   const handleDelete = async () => {
     const supabase = supabaseBrowser();
     deleteMessage(actionMessage?.id!);
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('messages')
       .delete()
       .eq('id', actionMessage?.id!);
@@ -40,7 +43,9 @@ export default function DeleteAlert() {
       toast.success('Message succesfully deleted.');
     }
   };
+
   return (
+
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <button className='hidden' id='trigger-delete'></button>
@@ -55,11 +60,15 @@ export default function DeleteAlert() {
             </p>
 
             {actionMessage && (
-              <ScrollArea className='h-fit max-h-44 rounded-md border border-border px-2 pt-2'>
-                <Message message={actionMessage} />
+              <ScrollArea className='my-2 rounded-md border border-border p-4'>
+                <ScrollViewport className='max-h-48'>
+                  <Message message={actionMessage} />
+                </ScrollViewport>
+                <ScrollBar>
+                  <ScrollThumb />
+                </ScrollBar>
+                <ScrollCorner />
               </ScrollArea>
-              // <div className='border border-border px-2 py-4 my-2 rounded-md max-h-32 overflow-y-auto'>
-              // </div>
             )}
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -70,4 +79,5 @@ export default function DeleteAlert() {
       </AlertDialogContent>
     </AlertDialog>
   );
+  
 }

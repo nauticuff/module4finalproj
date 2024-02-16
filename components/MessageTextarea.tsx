@@ -1,8 +1,8 @@
+import { PlusIcon, SendIcon } from 'lucide-react';
 import React, { SetStateAction } from 'react';
+
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
-import { PlusIcon } from 'lucide-react';
-import { SendIcon } from 'lucide-react';
 
 interface IMessageTextareaProps {
   blankMessage: string;
@@ -12,12 +12,10 @@ interface IMessageTextareaProps {
   handleSendMessage: (e: React.KeyboardEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function MessageTextarea({
-  props,
-}: {
-  props: IMessageTextareaProps;
-}) {
+export default function MessageTextarea({ props }: { props: IMessageTextareaProps }) {
+  
   return (
+
     <form>
       <div className='relative mx-auto flex max-h-60 grow flex-col overflow-hidden bg-zinc-900 px-16 py-5 shadow-sm sm:max-w-xl sm:rounded-lg sm:border'>
         <Button
@@ -48,5 +46,6 @@ export default function MessageTextarea({
         </Button>
       </div>
     </form>
+    
   );
 }

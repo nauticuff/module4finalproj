@@ -1,13 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { User } from '@supabase/supabase-js';
-import { supabaseBrowser } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import MessageTextarea from './MessageTextarea';
 import { v4 as uuidv4 } from 'uuid';
+
 import { IMessage, useMessage } from '@/lib/store/messages';
 import { useUser } from '@/lib/store/user';
+import { supabaseBrowser } from '@/lib/supabase/client';
+import { User } from '@supabase/supabase-js';
+
+import MessageTextarea from './MessageTextarea';
 
 export default function Chat({
   userData,
@@ -16,11 +18,10 @@ export default function Chat({
   userData: User | null;
   children: React.ReactNode;
 }) {
-  
   const supabase = supabaseBrowser();
   const [message, setMessage] = useState<string>('');
   const user = useUser((state) => state.user);
-  const addMessage = useMessage((state) => state.addMessage)
+  const addMessage = useMessage((state) => state.addMessage);
   const blankMessage = message.trim();
 
   const handleSendMessage = async (e: React.KeyboardEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLButtonElement>) => {
@@ -42,9 +43,9 @@ export default function Chat({
       },
     };
 
-    addMessage(newMessage as IMessage)
+    addMessage(newMessage as IMessage);
 
-    e.currentTarget.blur()
+    e.currentTarget.blur();
     const { error } = await supabase.from('messages').insert({ text: message });
     if (error) {
       toast.error(error.message);
@@ -60,7 +61,9 @@ export default function Chat({
   };
 
   if (!userData) return <p>Login to see chat</p>;
+
   return (
+
     <>
       {children}
       <div className='fixed inset-x-0 bottom-0 border-t bg-background sm:border-t-0 sm:px-4 sm:pb-4 md:px-0'>
@@ -75,5 +78,6 @@ export default function Chat({
         />
       </div>
     </>
+    
   );
 }

@@ -1,8 +1,8 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function formatDate(inputDate: string) {
@@ -16,6 +16,15 @@ export function formatDate(inputDate: string) {
   } else if (date.toDateString() === yesterday.toDateString()) {
     return `Yesterday at ${date.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
   } else {
-    return date.toLocaleString('en-US', { month: 'numeric', day: '2-digit', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).replace(',', '');
+    return date
+      .toLocaleString('en-US', {
+        month: 'numeric',
+        day: '2-digit',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      })
+      .replace(',', '');
   }
 }

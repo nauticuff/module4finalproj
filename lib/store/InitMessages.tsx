@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+
 import { IMessage, useMessage } from './messages';
 
 export default function InitMessages({ messages }: { messages: IMessage[] }) {

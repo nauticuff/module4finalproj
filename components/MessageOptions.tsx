@@ -1,27 +1,28 @@
 'use client';
 
+import { Pencil, Trash } from 'lucide-react';
 import React from 'react';
-import { IMessage } from '@/lib/store/messages';
-import { useMessage } from '@/lib/store/messages';
-import { Menubar } from './ui/menubar';
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from './ui/tooltip';
+
+import { IMessage, useMessage } from '@/lib/store/messages';
+
 import { Button } from './ui/button';
+import { Menubar } from './ui/menubar';
 import { Separator } from './ui/separator';
-import { Pencil } from 'lucide-react';
-import { Trash } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip';
 
 export default function MessageOptions({ message }: { message: IMessage }) {
-  
+
   const setActionMessage = useMessage((state) => state.setActionMessage);
 
   return (
+
     <div className='absolute -top-3 right-0'>
-      <Menubar className='p-1 opacity-0 group-hover:opacity-100'>
+      <Menubar className='p-1 opacity-0 group-focus-within:opacity-100 group-hover:opacity-100'>
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -58,6 +59,7 @@ export default function MessageOptions({ message }: { message: IMessage }) {
           </Tooltip>
         </TooltipProvider>
       </Menubar>
-      </div>
+    </div>
+    
   );
-};
+}
