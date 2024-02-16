@@ -1,33 +1,79 @@
 'use client';
 
+import { useState } from 'react';
 import { User } from '@supabase/supabase-js';
-import Header from './Header';
-import { Textarea } from './ui/textarea';
-import { Button } from './ui/button';
-export default function Chat({ userData }: { userData: User | null }) {
-  if (!userData) return <p>Log in to interact with the chat!</p>;
+import { supabaseBrowser } from '@/lib/supabase/client';
+import { toast } from 'sonner';
+import MessageTextarea from './MessageTextarea';
+import { v4 as uuidv4 } from 'uuid';
+import { IMessage, useMessage } from '@/lib/store/messages';
+import { useUser } from '@/lib/store/user';
+
+export default function Chat({
+  userData,
+  children,
+}: {
+  userData: User | null;
+  children: React.ReactNode;
+}) {
+  
+  const supabase = supabaseBrowser();
+  const [message, setMessage] = useState<string>('');
+  const user = useUser((state) => state.user);
+  const addMessage = useMessage((state) => state.addMessage)
+  const blankMessage = message.trim();
+
+  const handleSendMessage = async (e: React.KeyboardEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLButtonElement>) => {
+    if (blankMessage === '') {
+      return;
+    }
+
+    const newMessage = {
+      id: uuidv4(),
+      text: message,
+      sent_by: user?.id,
+      is_edited: false,
+      created_at: new Date().toISOString(),
+      users: {
+        id: user?.id,
+        avatar_url: user?.user_metadata.avatar_url,
+        created_at: new Date().toISOString(),
+        display_name: user?.user_metadata.user_name,
+      },
+    };
+
+    addMessage(newMessage as IMessage)
+
+    e.currentTarget.blur()
+    const { error } = await supabase.from('messages').insert({ text: message });
+    if (error) {
+      toast.error(error.message);
+    }
+    setMessage('');
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage(e);
+    }
+  };
+
+  if (!userData) return <p>Login to see chat</p>;
   return (
-    <div className="rounded my-4 p-3 border-2 border-gray-700">
-      <p className="mb-3 text-gray-600">(Messages will appear here)</p>
-      <div className="px-11 relative">
-        <Button className="absolute p-2 h-8 w-8 left-1 top-3 rounded-full inline-flex justify-center items-center" aria-label="add attachment">
-          <svg
-            viewBox="0 0 256 256"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-4 h-4 stroke-black"
-          >
-            <path
-              d="M42.6665 128H213.333M128 42.6666V213.333"
-              strokeWidth="21.3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-          </svg>
-        </Button>
-        <Textarea className="resize-none"></Textarea>
-        <Button aria-lab></Button>
+    <>
+      {children}
+      <div className='fixed inset-x-0 bottom-0 border-t bg-background sm:border-t-0 sm:px-4 sm:pb-4 md:px-0'>
+        <MessageTextarea
+          props={{
+            blankMessage,
+            message,
+            setMessage,
+            handleKeyPress,
+            handleSendMessage,
+          }}
+        />
       </div>
-    </div>
+    </>
   );
 }

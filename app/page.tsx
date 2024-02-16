@@ -1,24 +1,28 @@
 import Header from '@/components/Header';
 import Chat from '@/components/Chat';
-import Dashboard from '@/components/Dashboard';
 import InitUser from '@/lib/store/InitUser';
-import { createClient } from '@/lib/supabase/server';
+import { supabaseServer } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
+import ServerMessageList from '@/components/ServerMessageList';
 
 export default async function Home() {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = supabaseServer(cookieStore);
   const { data } = await supabase.auth.getUser();
 
   return (
-    <div className="min-h-screen">
-      <main className="mx-auto max-w-2xl px-4 relative h-full">
-        <InitUser user={data.user} />
+    <>
+      <div className='flex min-h-screen flex-col bg-background'>
         <Header user={data.user} />
-        <Chat userData={data.user} />
-        <Dashboard user={data.user} />
-        <p>Hello world</p>
-      </main>
-    </div>
+        <div className='flex h-full flex-1 flex-col'>
+          <main className='relative mx-auto mb-32 mt-10 w-full max-w-xl flex-1 px-5 sm:px-1'>
+            <Chat userData={data.user}>
+              <ServerMessageList />
+            </Chat>
+          </main>
+        </div>
+      </div>
+      <InitUser user={data.user} />
+    </>
   );
 }
