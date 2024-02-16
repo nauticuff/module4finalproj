@@ -19,8 +19,9 @@ ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
 export const ScrollViewport = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaViewport>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaViewport>
->(({ className, children }) => (
+>(({ className, children }, ref) => (
   <ScrollAreaPrimitive.Viewport
+    ref={ref}
     className={cn('h-full w-full rounded-[inherit]', className)}
   >
     {children}
@@ -53,8 +54,9 @@ ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;
 export const ScrollThumb = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaThumb>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaThumb>
->((className) => (
+>(({className}, ref) => (
   <ScrollAreaPrimitive.ScrollAreaThumb
+    ref={ref}
     className={cn('relative flex-1 rounded-full bg-border', className)}
   />
 ));
@@ -63,7 +65,7 @@ ScrollThumb.displayName = ScrollAreaPrimitive.ScrollAreaThumb.displayName;
 export const ScrollCorner = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaCorner>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaCorner>
->((className) => (
-  <ScrollAreaPrimitive.ScrollAreaCorner className={cn('', className)} />
+>((className, ref) => (
+  <ScrollAreaPrimitive.ScrollAreaCorner ref={ref} className={cn('', className)} />
 ));
 ScrollCorner.displayName = ScrollAreaPrimitive.ScrollAreaCorner.displayName;

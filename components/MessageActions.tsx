@@ -54,14 +54,12 @@ export default function DeleteAlert() {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            <p className='mb-5'>
               This action cannot be undone. This will permanently delete your
               message from our servers.
-            </p>
-
-            {actionMessage && (
-              <ScrollArea className='my-2 rounded-md border border-border p-4'>
-                <ScrollViewport className='max-h-48'>
+          </AlertDialogDescription>
+          {actionMessage && (
+              <ScrollArea className='rounded-md border border-border pt-4 pb-5 px-4'>
+                <ScrollViewport className='max-h-52'>
                   <Message message={actionMessage} />
                 </ScrollViewport>
                 <ScrollBar>
@@ -70,7 +68,6 @@ export default function DeleteAlert() {
                 <ScrollCorner />
               </ScrollArea>
             )}
-          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -79,5 +76,5 @@ export default function DeleteAlert() {
       </AlertDialogContent>
     </AlertDialog>
   );
-  
+
 }
