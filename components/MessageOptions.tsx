@@ -1,7 +1,6 @@
 'use client';
 
 import { Pencil, Trash } from 'lucide-react';
-import React from 'react';
 
 import { IMessage, useMessage } from '@/lib/store/messages';
 
@@ -16,11 +15,9 @@ import {
 } from './ui/tooltip';
 
 export default function MessageOptions({ message }: { message: IMessage }) {
-
   const setActionMessage = useMessage((state) => state.setActionMessage);
 
   return (
-
     <div className='absolute -top-3 right-0'>
       <Menubar className='p-1 opacity-0 group-focus-within:opacity-100 group-hover:opacity-100'>
         <TooltipProvider delayDuration={0}>
@@ -28,6 +25,11 @@ export default function MessageOptions({ message }: { message: IMessage }) {
             <TooltipTrigger asChild>
               <Button
                 className='p-2'
+                type='button'
+                onClick={() => {
+                  document.getElementById('trigger-edit')?.click();
+                  setActionMessage(message);
+                }}
                 variant={'link'}
                 aria-label='edit message'
               >
@@ -42,13 +44,14 @@ export default function MessageOptions({ message }: { message: IMessage }) {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
+                className='p-2'
+                type='button'
                 onClick={() => {
                   document.getElementById('trigger-delete')?.click();
                   setActionMessage(message);
                 }}
-                className='p-2'
                 variant={'link'}
-                aria-label=''
+                aria-label='delete message'
               >
                 <Trash className='size-4 text-neutral-200' />
               </Button>
@@ -60,6 +63,5 @@ export default function MessageOptions({ message }: { message: IMessage }) {
         </TooltipProvider>
       </Menubar>
     </div>
-    
   );
 }

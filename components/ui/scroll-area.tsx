@@ -1,3 +1,6 @@
+//I extracted all the individual components so that you can
+//style each one at its level
+
 import * as React from 'react';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import { cn } from '@/lib/utils';

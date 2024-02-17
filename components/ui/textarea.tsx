@@ -1,10 +1,10 @@
 // Okay this component code gets a little F U N K Y, read well.
-// I import the npm component AutosizeTextarea (this can be named anything: Banana, Apple, or Textarea)
-// I also import the interface for this imported component
+// I import the npm component AutosizeTextarea as a named import.
+// I also import the interface for this imported component.
 // I state that the base interface is HTMLTextAreaElement and then
 // I extend (or place) TextareaProps over that existing base interface (HTMLTextAreaElement)
 // TypeScript then is happy
-//bonus: cn just helps merge the explicityly stated tailwind css and incoming tailwind css
+//bonus: cn just helps merge the base css and incoming css
 
 import * as React from 'react';
 import AutosizeTextarea, {
