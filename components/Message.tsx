@@ -24,16 +24,16 @@ export default function Message({
       <div className='relative flex flex-1 flex-wrap flex-col gap-1'>
         <div className='flex justify-between'>
           <div className='flex items-baseline gap-2'>
-            <p className='font-bold text-neutral-200'>
+            <p className='text-sm xs:text-base font-bold text-neutral-200'>
               {message.users?.display_name}
             </p>
-            <p className='text-xs text-neutral-400'>
+            <p className='text-[9px] xs:text-xs text-neutral-400'>
               {formatDate(message.created_at)}
             </p>
           </div>
           {children}
         </div>
-        <p className='[word-break:break-word] whitespace-pre-wrap text-neutral-300'>
+        <p className='text-sm xs:text-base [word-break:break-word] whitespace-pre-wrap text-neutral-300'>
           {message.text}
           {message.is_edited && (
             <span className='text-[10px] text-gray-400'> (edited)</span>

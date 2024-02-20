@@ -18,8 +18,8 @@ export default function MessageOptions({ message }: { message: IMessage }) {
   const setActionMessage = useMessage((state) => state.setActionMessage);
 
   return (
-    <div className='absolute -top-3 right-0'>
-      <Menubar className='p-1 opacity-0 group-focus-within:opacity-100 group-hover:opacity-100'>
+    <div className='absolute -top-4 xs:-top-3 right-0'>
+      <Menubar className='p-1 opacity-100 lg:opacity-0 group-focus-within:opacity-100 group-hover:opacity-100'>
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -33,7 +33,7 @@ export default function MessageOptions({ message }: { message: IMessage }) {
                 variant={'link'}
                 aria-label='edit message'
               >
-                <Pencil className='size-4 text-neutral-200' />
+                <Pencil className='size-[14px] xs:size-4 text-neutral-200' />
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -53,7 +53,7 @@ export default function MessageOptions({ message }: { message: IMessage }) {
                 variant={'link'}
                 aria-label='delete message'
               >
-                <Trash className='size-4 text-neutral-200' />
+                <Trash className='size-[14px] xs:size-4 text-neutral-200' />
               </Button>
             </TooltipTrigger>
             <TooltipContent>

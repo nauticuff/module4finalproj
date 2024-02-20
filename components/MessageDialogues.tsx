@@ -127,16 +127,16 @@ export function EditAlert() {
       <DialogTrigger asChild>
         <button id='trigger-edit'></button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className='md:max-w-xl max-w-xs'>
         <DialogHeader>
           <DialogTitle>Edit Message</DialogTitle>
         </DialogHeader>
-        <div className='max-h-60 grow flex flex-col'>
+        <div className='max-h-60 border-input grow rounded-md flex flex-col py-3 px-2 has-[:focus]:outline-none has-[:focus]:ring-2 has-[:focus]:ring-ring has-[:focus]:ring-offset-2 has-[:focus]:ring-offset-neutral-900'>
 
         <Textarea
           rows={1}
           spellCheck={false}
-          className='resize-none px-3 py-2'
+          className='resize-none min-h-0 px-2 py-0 border-none focus-within:outline-none focus-visible:ring-0 focus-visible:ring-offset-0'
           defaultValue={actionMessage?.text}
           ref={editRef}
           />
