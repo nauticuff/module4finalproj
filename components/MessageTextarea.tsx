@@ -28,8 +28,8 @@ export default function MessageTextarea({
   props: IMessageTextareaProps;
 }) {
   return (
-    <form>
-      <div className='relative mx-auto flex max-h-60 grow flex-col overflow-hidden bg-background px-16 py-5 shadow-sm sm:max-w-xl sm:rounded-lg sm:border'>
+    
+      <form className='relative mx-auto flex max-h-60 grow flex-col bg-background px-16 py-5 shadow-sm sm:max-w-xl sm:rounded-lg sm:border'>
         <TooltipProvider delayDuration={35}>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -74,7 +74,7 @@ export default function MessageTextarea({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      </div>
-    </form>
+      </form>
+    
   );
 }

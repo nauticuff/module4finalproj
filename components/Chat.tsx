@@ -78,7 +78,7 @@ export default function Chat({
   return (
     <>
       {children}
-      <div className='fixed inset-x-0 bottom-0 border-t bg-neutral-900 sm:border-t-0 sm:px-4 sm:pb-4 md:px-0'>
+      <div className='sm:-mt-2 chat-bg border-t transition-all sm:border-none sm:px-4 sm:pb-4 chat-fade md:px-0'>
         <MessageTextarea
           props={{
             blankMessage,
@@ -89,6 +89,7 @@ export default function Chat({
           }}
         />
       </div>
+      
     </>
   );
 }

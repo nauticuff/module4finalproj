@@ -9,12 +9,9 @@ export default async function ServerMessageList() {
   const supabase = supabaseServer();
   const { data } = await supabase.from('messages').select('*, users(*)');
   return (
-    
-    <div>
-      <Suspense fallback={'Loading...'}>
-        <ClientMessageList />
-        <InitMessages messages={data || []} />
-      </Suspense>
-    </div>
+    <Suspense fallback={'Loading...'}>
+      <ClientMessageList />
+      <InitMessages messages={data || []} />
+    </Suspense>
   );
 }

@@ -11,7 +11,7 @@ export default function Message({
   children?: React.ReactNode;
 }) {
   return (
-    <div className=' flex items-start gap-4 p-2'>
+    <div className='flex items-start gap-4 p-2'>
       <div>
         <Image
           className='rounded-full'
@@ -21,7 +21,7 @@ export default function Message({
           height={46}
         />
       </div>
-      <div className='relative flex flex-1 flex-col gap-1'>
+      <div className='relative flex flex-1 flex-wrap flex-col gap-1'>
         <div className='flex justify-between'>
           <div className='flex items-baseline gap-2'>
             <p className='font-bold text-neutral-200'>
@@ -33,7 +33,7 @@ export default function Message({
           </div>
           {children}
         </div>
-        <p className='whitespace-pre-wrap text-start text-neutral-300'>
+        <p className='[word-break:break-word] whitespace-pre-wrap text-neutral-300'>
           {message.text}
           {message.is_edited && (
             <span className='text-[10px] text-gray-400'> (edited)</span>

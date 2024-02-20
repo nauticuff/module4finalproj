@@ -32,7 +32,7 @@ export default function Header({ user }: { user: User | null }) {
   };
 
   return (
-    <header className='h-15 sticky left-0 top-0 z-40 gap-4 border-b border-neutral-800 bg-background px-5 py-3'>
+    <header className='gap-4 border-b border-neutral-800 bg-background px-5 py-3'>
       <div className='flex justify-between items-center mx-auto max-w-xl'>
         <h1 className='text-gray-100'>
           Supa<span className='font-bold text-primary'>Chat</span>

@@ -1,29 +1,33 @@
 'use client';
 
-import { IMessage, useMessage } from '@/lib/store/messages';
-import { useUser } from '@/lib/store/user';
-
-import Message from './Message';
-import { DeleteAlert, EditAlert } from './MessageDialogues';
-import MessageOptions from './MessageOptions';
-import { useEffect } from 'react';
-import { supabaseBrowser } from '@/lib/supabase/client';
+import React, { useEffect, useRef, useState } from 'react';
+import { ResizableBox } from 'react-resizable';
 import { toast } from 'sonner';
 
+import { IMessage, useMessage } from '@/lib/store/messages';
+import { useUser } from '@/lib/store/user';
+import { supabaseBrowser } from '@/lib/supabase/client';
+
+import Message from './Message';
+import MessageOptions from './MessageOptions';
+import { DeleteAlert, EditAlert } from './MessageDialogues';
+
 export default function ClientMessageList() {
+  const scrollRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const { messages, addMessage, optimisticIds } = useMessage((state) => state);
+
   const user = useUser((state) => state.user);
   const supabase = supabaseBrowser();
-  
+
   useEffect(() => {
     const channel = supabase
       .channel('chat-room')
+
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'messages' },
         async (payload) => {
           if (!optimisticIds.includes(payload.new.id)) {
-
             const { data, error } = await supabase
               .from('users')
               .select('*')
@@ -48,8 +52,19 @@ export default function ClientMessageList() {
     };
   }, [messages]);
 
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <>
+    <div
+      ref={scrollRef}
+      className='relative flex-1 overflow-y-auto overflow-x-hidden max-w-3xl mx-auto p-3'
+    >
       {messages.map((message, idx) => (
         <div key={idx} className='group'>
           <Message message={message}>
@@ -63,6 +78,6 @@ export default function ClientMessageList() {
       ))}
       <DeleteAlert />
       <EditAlert />
-    </>
+    </div>
   );
 }

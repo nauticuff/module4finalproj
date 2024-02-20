@@ -37,6 +37,7 @@ import {
   ScrollViewport,
 } from './ui/scroll-area';
 import { useRef } from 'react';
+import { Textarea } from './ui/textarea';
 
 export function DeleteAlert() {
   const actionMessage = useMessage((state) => state.actionMessage);
@@ -92,12 +93,12 @@ export function DeleteAlert() {
 
 export function EditAlert() {
   const actionMessage = useMessage((state) => state.actionMessage);
-  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const editRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
   const editMessage = useMessage((state) => state.editMessage);
 
   const handleEdit = async () => {
     const supabase = supabaseBrowser();
-    const text = inputRef.current.value.trim();
+    const text = editRef.current.value.trim();
     if (text) {
       editMessage({
         ...actionMessage,
@@ -130,7 +131,18 @@ export function EditAlert() {
         <DialogHeader>
           <DialogTitle>Edit Message</DialogTitle>
         </DialogHeader>
-        <Input defaultValue={actionMessage?.text} ref={inputRef} />
+        <div className='max-h-60 grow flex flex-col'>
+
+        <Textarea
+          rows={1}
+          spellCheck={false}
+          className='resize-none px-3 py-2'
+          defaultValue={actionMessage?.text}
+          ref={editRef}
+          />
+          </div>
+
+        {/* <Input defaultValue={actionMessage?.text} ref={inputRef} /> */}
         <DialogFooter>
           <Button type='submit' onClick={handleEdit}>
             Save changes
