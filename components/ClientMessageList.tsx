@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { ResizableBox } from 'react-resizable';
+import React, { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 
 import { IMessage, useMessage } from '@/lib/store/messages';
