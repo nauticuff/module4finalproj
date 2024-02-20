@@ -62,7 +62,7 @@ export default function ClientMessageList() {
   return (
     <div
       ref={scrollRef}
-      className='relative flex-1 overflow-y-auto overflow-x-hidden max-w-3xl mx-auto p-3'
+      className='relative flex-1 overflow-y-auto overflow-x-hidden max-w-3xl w-full mx-auto p-3'
     >
       {messages.map((message, idx) => (
         <div key={idx} className='group'>
