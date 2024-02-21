@@ -57,6 +57,9 @@
     @apply bg-background text-foreground;
   }
 }
+*, *::before, *::after {
+  scroll-behavior: smooth;
+}
 
 .chat-fade {
   position: relative;
