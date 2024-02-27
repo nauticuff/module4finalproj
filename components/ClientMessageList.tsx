@@ -52,9 +52,9 @@ export default function ClientMessageList() {
             scrollContainer.scrollTop <
             scrollContainer.scrollHeight - scrollContainer.clientHeight - 10;
             //add a check 
-            //if message sent is also not he one currently logged in
+            //if message sent is also not the one currently logged in
             const latestMessage = messages[messages.length - 1]
-          if (didScroll && (latestMessage.sent_by != user?.id)) {
+          if (didScroll && (latestMessage.sent_by !== user?.id)) {
             setNotification((current) => current + 1);
           }
         },

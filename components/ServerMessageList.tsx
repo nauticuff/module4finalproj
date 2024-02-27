@@ -12,7 +12,6 @@ export default async function ServerMessageList() {
   const { data } = await supabase
     .from('messages')
     .select('*, users(*)')
-    .range(0, MESSAGE_LIMIT)
     .order('created_at', { ascending: false });
   return (
     <Suspense fallback={'Loading...'}>
