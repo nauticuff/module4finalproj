@@ -121,7 +121,6 @@ export default function ClientMessageList() {
         {messages.map((message, idx) => (
           <div key={idx} className='group'>
             <Message message={message}>
-              {/* confirm message is user's message */}
               {message.users?.id === user?.id && (
                 <MessageOptions message={message} />
               )}

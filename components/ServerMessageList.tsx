@@ -13,7 +13,7 @@ export default async function ServerMessageList() {
     .select('*, users(*)')
     .range(0, MESSAGE_LIMIT)
     .order('created_at', { ascending: false });
-    
+
   return (
     <Suspense fallback={'Loading...'}>
       <ClientMessageList />

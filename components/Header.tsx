@@ -11,7 +11,7 @@ import { useUser } from '@/lib/store/user';
 
 export default function Header({ user }: { user: User | null }) {
   const router = useRouter();
-  const resetUser = useUser((state) => state.resetUser)
+  const resetUser = useUser((state) => state.resetUser);
 
   const handleLogin = () => {
     const supabase = supabaseBrowser();
@@ -31,7 +31,9 @@ export default function Header({ user }: { user: User | null }) {
   const handleLogout = async () => {
     const supabase = supabaseBrowser();
     await supabase.auth.signOut();
+
     resetUser();
+
     router.refresh();
   };
 

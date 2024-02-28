@@ -11,12 +11,8 @@ export default async function Home() {
     <div className='h-screen bg-neutral-900'>
       <div className='relative flex h-full flex-col'>
         <Header user={data.user} />
-        <main className='flex flex-1 flex-col overflow-auto'>
-          {/* {data.user ? (  */}
+        <main className='flex flex-1 flex-col overflow-y-auto'>
           <ServerMessageList />
-          {/* ) : ( */}
-            {/* <p className='h-full text-center grid place-items-center'>Login to chat.</p> */}
-          {/* )} */}
         </main>
       </div>
       <InitUser user={data.user} />

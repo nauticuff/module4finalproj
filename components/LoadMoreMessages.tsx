@@ -14,7 +14,7 @@ export default function LoadMoreMessages() {
   const user = useUser((state) => state.user)
   const hasMoreMessages = useMessage((state) => state.hasMoreMessages);
 
-  const handleFetchMore = async () => {
+  const handleClick = async () => {
     const { from, to } = getFromAndTo(page, MESSAGE_LIMIT);
     const supabase = supabaseBrowser();
     const { data, error } = await supabase
@@ -32,7 +32,7 @@ export default function LoadMoreMessages() {
   if (hasMoreMessages && user) {
     return (
       <Button
-        onClick={handleFetchMore}
+        onClick={handleClick}
         className='mb-5 w-full'
         variant='outline'
       >

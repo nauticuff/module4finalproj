@@ -15,7 +15,7 @@ export default function Message({
       <div>
         <Image
           className='rounded-full size-9 xs:size-11'
-          src={message.users?.avatar_url!}
+          src={message.users?.avatar_url || ''}
           alt={message.users?.avatar_url + "'s avatar"}
           width={46}
           height={46}

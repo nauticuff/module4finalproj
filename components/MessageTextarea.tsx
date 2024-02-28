@@ -31,6 +31,7 @@ export default function MessageTextarea({
 }) {
   return (
     <>
+    {/*Conditianlly render a tool tip to tell user to login to type in chat */}
       {/* <TooltipProvider disableHoverableContent={!props.userProp}>
         <Tooltip delayDuration={0}>
           <TooltipTrigger className='w-fit mx-auto'> */}

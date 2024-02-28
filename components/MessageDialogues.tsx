@@ -124,22 +124,19 @@ export function EditAlert() {
       <DialogTrigger asChild>
         <button id='trigger-edit'></button>
       </DialogTrigger>
-      <DialogContent className='md:max-w-xl max-w-xs'>
+      <DialogContent className='max-w-xs md:max-w-xl'>
         <DialogHeader>
           <DialogTitle>Edit Message</DialogTitle>
         </DialogHeader>
-        <div className='max-h-60 border-input grow rounded-md flex flex-col py-3 px-2 has-[:focus]:outline-none has-[:focus]:ring-2 has-[:focus]:ring-ring has-[:focus]:ring-offset-2 has-[:focus]:ring-offset-neutral-900'>
-
-        <Textarea
-          rows={1}
-          spellCheck={false}
-          className='resize-none min-h-0 px-2 py-0 border-none focus-within:outline-none focus-visible:ring-0 focus-visible:ring-offset-0'
-          defaultValue={actionMessage?.text}
-          ref={editRef}
+        <div className='flex max-h-60 grow flex-col rounded-md border-input px-2 py-3 has-[:focus]:outline-none has-[:focus]:ring-2 has-[:focus]:ring-ring has-[:focus]:ring-offset-2 has-[:focus]:ring-offset-neutral-900'>
+          <Textarea
+            rows={1}
+            spellCheck={false}
+            className='min-h-0 resize-none border-none px-2 py-0 focus-within:outline-none focus-visible:ring-0 focus-visible:ring-offset-0'
+            defaultValue={actionMessage?.text}
+            ref={editRef}
           />
-          </div>
-
-        {/* <Input defaultValue={actionMessage?.text} ref={inputRef} /> */}
+        </div>
         <DialogFooter>
           <Button type='submit' onClick={handleEdit}>
             Save changes

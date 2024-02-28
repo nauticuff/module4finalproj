@@ -1,6 +1,6 @@
 'use client';
 
-import { MutableRefObject, useRef, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,7 +24,7 @@ export default function ChatInput({
   notification,
   userScrolled,
   scrollToBottom,
-  userProp
+  userProp,
 }: ChatInputProps) {
   const supabase = supabaseBrowser();
   const [message, setMessage] = useState<string>('');
@@ -62,7 +62,8 @@ export default function ChatInput({
     addMessage(newMessage as IMessage);
     setOptimisticIds(newMessage.id);
 
-    //Message kept getting displayed twice in Chat => Message because I forgot the id in { text: message, id }
+    //Message kept getting displayed twice in Chat => Message 
+    //because I forgot the id in { text: message, id }
     const { error } = await supabase
       .from('messages')
       .insert({ text: message, id });
@@ -81,7 +82,7 @@ export default function ChatInput({
 
   return (
     <>
-      <div className='chat-bg chat-fade relative border-t transition-all sm:-mt-[6px] sm:border-none sm:px-4 sm:pb-4 md:px-0'>
+      <div className='chat-bg chat-fade w-full relative border-t transition-all sm:-mt-[6px] sm:border-none sm:px-4 sm:pb-4 md:px-0'>
         <MessageTextarea
           props={{
             userProp,
@@ -93,27 +94,29 @@ export default function ChatInput({
           }}
         />
         {userScrolled && (
-          <div className='absolute bottom-20 sm:bottom-24 w-full '>
+          <div className='absolute left-0 bottom-20 w-full sm:bottom-24 '>
             {notification ? (
               <div className='mb-3 grid w-full place-items-center'>
                 <Button
-                  className='rounded-md border border-border bg-background px-3 py-2 text-neutral-100 transition-all hover:scale-[1.03] hover:bg-primary'
+                  className='relative rounded-md border border-border bg-background px-3 py-2 text-neutral-100 transition-all hover:bg-primary'
                   type='button'
                   onClick={scrollToBottom}
                 >
-                  {notification} new messages.
+                  <span className='absolute right-0 top-0 -mr-1 -mt-1 size-3 animate-ping rounded-full bg-primary opacity-75'></span>
+                  <span className='absolute right-0 top-0 -mr-1 -mt-1 size-3 rounded-full bg-primary/90'></span>
+                  {notification} new messages
                 </Button>
               </div>
             ) : (
               <></>
             )}
             <Button
-              className='mx-auto flex sm:size-12 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 transition-all hover:scale-110 hover:bg-primary'
+              className='mx-auto flex cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 transition-all hover:scale-110 hover:bg-primary sm:size-12'
               type='button'
               onClick={scrollToBottom}
               aria-label='scroll to bottom'
             >
-              <ArrowDown  />
+              <ArrowDown />
             </Button>
           </div>
         )}
