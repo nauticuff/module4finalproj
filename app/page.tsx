@@ -1,4 +1,3 @@
-import Chat from '@/components/Chat';
 import Header from '@/components/Header';
 import ServerMessageList from '@/components/ServerMessageList';
 import InitUser from '@/lib/store/InitUser';
@@ -10,14 +9,16 @@ export default async function Home() {
 
   return (
     <div className='h-screen bg-neutral-900'>
-      <div className='h-full flex flex-col relative'>
+      <div className='relative flex h-full flex-col'>
         <Header user={data.user} />
-          <main className='flex flex-1 flex-col overflow-auto'>
-            <Chat userData={data.user}>
-              <ServerMessageList />
-            </Chat>
-          </main>
-        </div>
+        <main className='flex flex-1 flex-col overflow-auto'>
+          {/* {data.user ? (  */}
+          <ServerMessageList />
+          {/* ) : ( */}
+            {/* <p className='h-full text-center grid place-items-center'>Login to chat.</p> */}
+          {/* )} */}
+        </main>
+      </div>
       <InitUser user={data.user} />
     </div>
   );

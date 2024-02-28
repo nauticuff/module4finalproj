@@ -1,8 +1,8 @@
 'use client';
 
-import { ArrowDown } from 'lucide-react';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
+import ChatInput from './ChatInput';
 
 import { IMessage, useMessage } from '@/lib/store/messages';
 import { useUser } from '@/lib/store/user';
@@ -11,7 +11,7 @@ import { supabaseBrowser } from '@/lib/supabase/client';
 import Message from './Message';
 import { DeleteAlert, EditAlert } from './MessageDialogues';
 import MessageOptions from './MessageOptions';
-import { Button } from './ui/button';
+import LoadMoreMessages from './LoadMoreMessages';
 
 export default function ClientMessageList() {
   const scrollRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -26,7 +26,6 @@ export default function ClientMessageList() {
   useEffect(() => {
     const channel = supabase
       .channel('chat-room')
-
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'messages' },
@@ -51,10 +50,10 @@ export default function ClientMessageList() {
           const didScroll =
             scrollContainer.scrollTop <
             scrollContainer.scrollHeight - scrollContainer.clientHeight - 10;
-            //add a check 
-            //if message sent is also not the one currently logged in
-            const latestMessage = messages[messages.length - 1]
-          if (didScroll && (latestMessage.sent_by !== user?.id)) {
+          //add a check to make sure
+          //message sent by is not by the one currently logged in
+          const latestMessage = messages[messages.length - 1];
+          if (didScroll && latestMessage.sent_by !== user?.id) {
             setNotification((current) => current + 1);
           }
         },
@@ -116,6 +115,9 @@ export default function ClientMessageList() {
         ref={scrollRef}
         onScroll={handleOnScroll}
       >
+        <div>
+          <LoadMoreMessages />
+        </div>
         {messages.map((message, idx) => (
           <div key={idx} className='group'>
             <Message message={message}>
@@ -130,29 +132,12 @@ export default function ClientMessageList() {
         <DeleteAlert />
         <EditAlert />
       </div>
-      {userScrolled && (
-        <div className='absolute bottom-28 w-full '>
-          {notification && (
-            <div className='mb-3 grid w-full place-items-center'>
-              <Button
-                className='rounded-md border border-border bg-background px-3 py-2 text-neutral-100 transition-all hover:scale-[1.03] hover:bg-primary'
-                type='button'
-                onClick={scrollToBottom}
-              >
-                {notification} new messages.
-              </Button>
-            </div>
-          )}
-          <Button
-            className='mx-auto flex size-12 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-2 transition-all hover:scale-110 hover:bg-primary'
-            type='button'
-            onClick={scrollToBottom}
-            aria-label='scroll to bottom'
-          >
-            <ArrowDown />
-          </Button>
-        </div>
-      )}
+      <ChatInput
+        userProp={user}
+        notification={notification}
+        userScrolled={userScrolled}
+        scrollToBottom={scrollToBottom}
+      />
     </>
   );
 }
