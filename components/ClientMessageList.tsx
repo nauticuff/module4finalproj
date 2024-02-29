@@ -12,7 +12,7 @@ import Message from './Message';
 import { DeleteAlert, EditAlert } from './MessageDialogues';
 import MessageOptions from './MessageOptions';
 import LoadMoreMessages from './LoadMoreMessages';
-import ClientMessageListSkeleton from './ClientMessageListSkeleton';
+import MessagesSkeleton from './MesagesSkeleton';
 
 export default function ClientMessageList() {
   const scrollRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -112,23 +112,27 @@ export default function ClientMessageList() {
   return (
     <>
       <div
-        className='sm:px-[10vw] md:px-[20vw] xl:px-[25vw] w-full Xmax-w-3xl flex-1 Xoverflow-y-auto overflow-x-hidden p-3'
+        className='Xmax-w-3xl Xoverflow-y-auto w-full flex-1 overflow-x-hidden p-3 sm:px-[10vw] md:px-[20vw] xl:px-[25vw]'
         ref={scrollRef}
         onScroll={handleOnScroll}
       >
         <div>
           <LoadMoreMessages />
         </div>
-        {messages.length > 0 ? ( messages.map((message, idx) => (
-          <div key={idx} className='group'>
-            <Message message={message}>
-              {message.users?.id === user?.id && (
-                <MessageOptions message={message} />
-              )}
-            </Message>
-            {idx !== messages.length - 1 && <hr className='my-4 px-2' />}
-          </div>
-        ))) : ( <ClientMessageListSkeleton />)}
+        {messages.length > 0 ? (
+          messages.map((message, idx) => (
+            <div key={idx} className='group'>
+              <Message message={message}>
+                {message.users?.id === user?.id && (
+                  <MessageOptions message={message} />
+                )}
+              </Message>
+              {idx !== messages.length - 1 && <hr className='my-4 px-2' />}
+            </div>
+          ))
+        ) : (
+          <MessagesSkeleton />
+        )}
         <DeleteAlert />
         <EditAlert />
       </div>

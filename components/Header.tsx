@@ -38,7 +38,7 @@ export default function Header({ user }: { user: User | null }) {
   };
 
   return (
-    <header className='flex items-center justify-between gap-4 border-b border-neutral-800 bg-background px-5 py-3 lg:px-8 2xl:px-[10%]'>
+    <header className='h-[73px] flex items-center justify-between gap-4 border-b border-neutral-800 bg-background px-5 py-3 lg:px-8 2xl:px-[10%]'>
       <div className='flex flex-col gap-1'>
         <h1 className='text-gray-100'>
           Supa<span className='font-bold text-primary'>Chat</span>
