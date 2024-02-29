@@ -12,6 +12,7 @@ import Message from './Message';
 import { DeleteAlert, EditAlert } from './MessageDialogues';
 import MessageOptions from './MessageOptions';
 import LoadMoreMessages from './LoadMoreMessages';
+import ClientMessageListSkeleton from './ClientMessageListSkeleton';
 
 export default function ClientMessageList() {
   const scrollRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -108,8 +109,6 @@ export default function ClientMessageList() {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
 
-  //Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic neque veniam, rem nemo eius dolore sed rerum in corrupti eum deserunt, ullam temporibus officia odio sunt sapiente assumenda inventore provident!
-
   return (
     <>
       <div
@@ -120,7 +119,7 @@ export default function ClientMessageList() {
         <div>
           <LoadMoreMessages />
         </div>
-        {messages.map((message, idx) => (
+        {messages.length > 0 ? ( messages.map((message, idx) => (
           <div key={idx} className='group'>
             <Message message={message}>
               {message.users?.id === user?.id && (
@@ -129,7 +128,7 @@ export default function ClientMessageList() {
             </Message>
             {idx !== messages.length - 1 && <hr className='my-4 px-2' />}
           </div>
-        ))}
+        ))) : ( <ClientMessageListSkeleton />)}
         <DeleteAlert />
         <EditAlert />
       </div>
