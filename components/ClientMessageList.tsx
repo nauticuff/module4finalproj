@@ -108,10 +108,12 @@ export default function ClientMessageList() {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
 
+  //Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic neque veniam, rem nemo eius dolore sed rerum in corrupti eum deserunt, ullam temporibus officia odio sunt sapiente assumenda inventore provident!
+
   return (
     <>
       <div
-        className='mx-auto w-full max-w-3xl flex-1 overflow-y-auto overflow-x-hidden p-3'
+        className='sm:px-[10vw] md:px-[20vw] xl:px-[25vw] w-full Xmax-w-3xl flex-1 Xoverflow-y-auto overflow-x-hidden p-3'
         ref={scrollRef}
         onScroll={handleOnScroll}
       >

@@ -71,6 +71,6 @@
   top: 0;
   left: 0;
   height: .5rem;
-  width: 100vw;
+  width: 100%;
   background: linear-gradient(to bottom, #00000000 0%, #171717 100%);
 }
