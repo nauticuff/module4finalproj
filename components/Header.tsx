@@ -38,26 +38,48 @@ export default function Header({ user }: { user: User | null }) {
   };
 
   return (
-    <header className='h-[73px] flex items-center justify-between gap-4 border-b border-neutral-800 bg-background px-5 py-3 lg:px-8 2xl:px-[10%]'>
+    <header className='flex h-[73px] items-center justify-between gap-4 border-b border-neutral-800 bg-background px-5 py-3 lg:px-8 2xl:px-[10%]'>
       <div className='flex flex-col gap-1'>
         <h1 className='text-gray-100'>
           Supa<span className='font-bold text-primary'>Chat</span>
         </h1>
         <ChatPresence />
       </div>
-      {user ? (
-        <Button
-          className='py-0 md:py-4'
+      <div className='flex items-center justify-around gap-2'>
+        {/* <Button
+          type='button'
           variant='secondary'
-          onClick={handleLogout}
+          onClick={() => {
+            document.getElementById('create-new-channel')?.click();
+          }}
         >
-          Logout
+          New channel
+        </Button> */}
+        {user ? (
+          <>
+          <Button
+          type='button'
+          variant='secondary'
+          onClick={() => {
+            document.getElementById('create-new-channel')?.click();
+          }}
+        >
+          New channel
         </Button>
-      ) : (
-        <Button className='py-2 md:py-4' onClick={handleLogin}>
-          Login
-        </Button>
-      )}
+          <Button
+            className='py-0 md:py-4'
+            variant='secondary'
+            onClick={handleLogout}
+            >
+            Logout
+          </Button>
+            </>
+        ) : (
+          <Button className='py-2 md:py-4' onClick={handleLogin}>
+            Login
+          </Button>
+        )}
+      </div>
     </header>
   );
 }

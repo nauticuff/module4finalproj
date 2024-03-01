@@ -13,6 +13,7 @@ import { DeleteAlert, EditAlert } from './MessageDialogues';
 import MessageOptions from './MessageOptions';
 import LoadMoreMessages from './LoadMoreMessages';
 import MessagesSkeleton from './MesagesSkeleton';
+import { NewChannelDialog } from './NewChannelDialog';
 
 export default function ClientMessageList() {
   const scrollRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -142,6 +143,7 @@ export default function ClientMessageList() {
         )}
         <DeleteAlert />
         <EditAlert />
+        <NewChannelDialog />
       </div>
       <ChatInput
         userProp={user}
