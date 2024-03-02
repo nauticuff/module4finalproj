@@ -1,19 +1,21 @@
-// import { supabaseBrowser } from '@/lib/supabase/client';
 import { supabaseServer } from '@/lib/supabase/server';
 import { formatDate } from '@/lib/utils';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const supabase = supabaseServer();
 
-  const { data } = await supabase
+  const { data: userData } = await supabase.auth.getUser();
+  if(!userData.user){
+    redirect('/')
+  }
+
+  const { data, error } = await supabase
     .from('channels')
     .select('*')
     .eq('id', params.slug);
 
-   console.log(data) 
-
-  if (!data) {
+  if (error) {
     notFound();
   }
 

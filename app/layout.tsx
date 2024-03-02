@@ -1,9 +1,13 @@
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/sonner';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 
+import { Inter } from 'next/font/google';
+
+import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
+import InitUser from '@/lib/store/InitUser';
+import { supabaseServer } from '@/lib/supabase/server';
+
+import type { Metadata } from 'next';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -11,11 +15,14 @@ export const metadata: Metadata = {
   description: 'Chat here, chat there, chat everywhere.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = supabaseServer();
+  const { data } = await supabase.auth.getUser();
+
   return (
     <html lang='en'>
       <body className={inter.className}>
@@ -27,6 +34,10 @@ export default function RootLayout({
         >
           {children}
           <Toaster richColors position='top-center' />
+          {/* This is only to check if there is a user
+              on the client side only.
+          */}
+          <InitUser user={data.user} />
         </ThemeProvider>
       </body>
     </html>

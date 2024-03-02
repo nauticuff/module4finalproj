@@ -16,44 +16,29 @@ export type IMessage = {
 };
 
 interface MessageState {
-  hasMoreMessages: boolean;
-  page: number;
   messages: IMessage[];
   actionMessage: IMessage | undefined;
+  page: number;
+  hasMoreMessages: boolean;
   optimisticIds: string[];
   addMessage: (message: IMessage) => void;
-  setActionMessage: (message: IMessage | undefined) => void;
-  deleteMessage: (messageId: string) => void;
   editMessage: (message: IMessage) => void;
-  setOptimisticIds: (id: string) => void;
+  deleteMessage: (messageId: string) => void;
   setMessages: (messages: IMessage[]) => void;
+  setActionMessage: (message: IMessage | undefined) => void;
+  setOptimisticIds: (id: string) => void;
 }
 
 export const useMessage = create<MessageState>()((set) => ({
-  hasMoreMessages: true,
-  page: 1,
   messages: [],
-  optimisticIds: [],
   actionMessage: undefined,
-  setMessages: (messages) =>
-    set((state) => ({
-      messages: [...messages, ...state.messages],
-      page: state.page + 1,
-      hasMoreMessages: messages.length >= MESSAGE_LIMIT
-    })),
-  setOptimisticIds: (id: string) =>
-    set((state) => ({ optimisticIds: [...state.optimisticIds, id] })),
+  page: 1,
+  hasMoreMessages: true,
+  optimisticIds: [],
   addMessage: (newMessage) =>
     set((state) => ({
       messages: [...state.messages, newMessage],
     })),
-  setActionMessage: (message) => set(() => ({ actionMessage: message })),
-  deleteMessage: (messageId) =>
-    set((state) => {
-      return {
-        messages: state.messages.filter((message) => message.id !== messageId),
-      };
-    }),
   editMessage: (editMessage) =>
     set((state) => {
       return {
@@ -66,4 +51,19 @@ export const useMessage = create<MessageState>()((set) => ({
         }),
       };
     }),
+  deleteMessage: (messageId) =>
+    set((state) => {
+      return {
+        messages: state.messages.filter((message) => message.id !== messageId),
+      };
+    }),
+  setMessages: (messages) =>
+    set((state) => ({
+      messages: [...messages, ...state.messages],
+      page: state.page + 1,
+      hasMoreMessages: messages.length >= MESSAGE_LIMIT,
+    })),
+  setActionMessage: (message) => set(() => ({ actionMessage: message })),
+  setOptimisticIds: (id: string) =>
+    set((state) => ({ optimisticIds: [...state.optimisticIds, id] })),
 }));

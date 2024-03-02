@@ -59,9 +59,6 @@ export default function ChatInput({
       },
     };
 
-    addMessage(newMessage as IMessage);
-    setOptimisticIds(newMessage.id);
-
     //Message kept getting displayed twice in Chat => Message 
     //because I forgot the id in { text: message, id }
     const { error } = await supabase
@@ -69,7 +66,12 @@ export default function ChatInput({
       .insert({ text: message, id });
     if (error) {
       toast.error(error.message);
+      return
     }
+
+    addMessage(newMessage as IMessage);
+    setOptimisticIds(newMessage.id);
+    
     setMessage('');
   };
 

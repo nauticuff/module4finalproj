@@ -1,21 +1,21 @@
-import Header from '@/components/Header';
+import Chat from '@/components/Chat';
 import ServerMessageList from '@/components/ServerMessageList';
-import InitUser from '@/lib/store/InitUser';
+import InitMembers from '@/lib/store/InitMembers';
 import { supabaseServer } from '@/lib/supabase/server';
 
 export default async function Home() {
   const supabase = supabaseServer();
   const { data } = await supabase.auth.getUser();
 
+  const { data: memberData } = await supabase
+    .from('members')
+    .select('*, channels(*)')
+    .eq('user_id', data.user?.id || '');
+
   return (
-    <div className='h-screen bg-neutral-900'>
-      <div className='relative flex h-full flex-col'>
-        <Header user={data.user} />
-        <main className='flex flex-1 flex-col overflow-y-auto'>
-          <ServerMessageList />
-        </main>
-      </div>
-      <InitUser user={data.user} />
-    </div>
+    <Chat>
+      <ServerMessageList />
+      <InitMembers members={memberData || []} />
+    </Chat>
   );
 }
