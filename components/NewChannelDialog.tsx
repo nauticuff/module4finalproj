@@ -32,23 +32,23 @@ export function NewChannelDialog() {
     if (user) {
 
       const id = uuidv4();
-      const channels_id = uuidv4();
+      const channel_id = uuidv4();
       const newMember: IMember = {
         id,
         created_at: new Date().toISOString(),
-        channels_id,
+        channel_id,
         user_id: user?.id,
         role: 'ADMIN',
         channels: {
           created_at: new Date().toISOString(),
-          id: channels_id,
+          id: channel_id,
           name: channel,
         },
       };
 
       const { error: channelError } = await supabase
         .from('channels')
-        .insert({ id: channels_id, name: channel });
+        .insert({ id: channel_id, name: channel });
 
       if (channelError) {
         toast.error(channelError.message);
@@ -59,7 +59,7 @@ export function NewChannelDialog() {
 
       const { error: memberError } = await supabase
         .from('members')
-        .insert({ id, user_id: user?.id, channels_id, role: 'ADMIN' });
+        .insert({ id, user_id: user?.id, channel_id, role: 'ADMIN' });
 
       if (memberError) {
         toast.error(memberError.message);
@@ -73,6 +73,7 @@ export function NewChannelDialog() {
       
       setChannel('');
       document.getElementById('create-new-channel')?.click();
+      toast.success('Channel successfully created!')
     }
   };
 

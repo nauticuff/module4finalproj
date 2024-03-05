@@ -20,12 +20,14 @@ import {
   TooltipTrigger,
 } from './ui/tooltip';
 import { supabaseBrowser } from '@/lib/supabase/client';
+import { useUser } from '@/lib/store/user';
 
 interface ChannelsDropdownProps {
   members: IMember[];
 }
 export default function ChannelsDropdown({ members }: ChannelsDropdownProps) {
   const setActionChannel = useMember((state) => state.setActionChannel);
+  const user = useUser((state) => state.user)
 
   return (
     <>
@@ -38,7 +40,7 @@ export default function ChannelsDropdown({ members }: ChannelsDropdownProps) {
         <DropdownMenuContent>
           <DropdownMenuLabel>My channels</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {members.length > 0 ?   (members.map((member, idx) => (
+          {members.length > 0 ? (members.map((member, idx) => (
             <DropdownMenuItem
               className='flex items-center justify-between gap-1 p-0'
               key={idx}
@@ -49,6 +51,7 @@ export default function ChannelsDropdown({ members }: ChannelsDropdownProps) {
               >
                 {member.channels?.name}
               </Link>
+              {member.role === 'ADMIN' &&
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className='px-2 py-1.5'>
@@ -59,13 +62,14 @@ export default function ChannelsDropdown({ members }: ChannelsDropdownProps) {
                         document.getElementById('delete-channel')?.click();
                         setActionChannel(member);
                       }}
-                    />
+                      />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Delete</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+                  }
             </DropdownMenuItem>
           ))) : ( <DropdownMenuItem disabled>No channels</DropdownMenuItem>)}
         </DropdownMenuContent>

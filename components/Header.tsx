@@ -55,10 +55,11 @@ export default function Header() {
     const channel = supabase
     .channel('chat-room1')
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'channels' }, payload => {
-      console.log('Channel created: ', payload)
+      // console.log('Channel created: ', payload)
+      // addMember(payload.old.id)
     })
     .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'channels' }, payload => {
-      console.log('Channel deleted: ', payload)
+      // console.log('Channel deleted: ', payload)
       deleteChannel(payload.old.id)
     })
     .subscribe()

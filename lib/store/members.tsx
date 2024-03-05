@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export type IMember = {
-  channels_id: string | null;
+  channel_id: string | null;
   created_at: string;
   id: string;
   role: 'ADMIN' | 'GUEST';

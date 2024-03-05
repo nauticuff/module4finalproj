@@ -2,7 +2,7 @@ import './globals.css';
 
 import { Inter } from 'next/font/google';
 
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import InitUser from '@/lib/store/InitUser';
 import { supabaseServer } from '@/lib/supabase/server';
@@ -31,6 +31,7 @@ export default async function RootLayout({
           defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
+          storageKey='supachat-theme'
         >
           {children}
           <Toaster richColors position='top-center' />

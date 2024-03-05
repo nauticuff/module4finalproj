@@ -10,8 +10,9 @@ export default async function Home() {
   const { data: memberData } = await supabase
     .from('members')
     .select('*, channels(*)')
-    .eq('user_id', data.user?.id || '');
+    .eq('user_id', data.user?.id!);
 
+    // console.log(memberData)
   return (
     <Chat>
       <ServerMessageList />

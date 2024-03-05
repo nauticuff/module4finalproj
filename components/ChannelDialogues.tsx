@@ -18,20 +18,22 @@ import { supabaseBrowser } from '@/lib/supabase/client';
 export function DeleteChannelAlert() {
   const actionChannel = useMember((state) => state.actionChannel);
   const deleteChannel = useMember((state) => state.deleteChannel);
-  console.log(actionChannel)
+  // console.log(actionChannel)
   const handleDelete = async () => {
     const supabase = supabaseBrowser();
-    deleteChannel(actionChannel?.channels?.id!);
-
+    
     const { error } = await supabase
-      .from('channels')
-      .delete()
-      .eq('id', actionChannel?.channels?.id!);
+    .from('channels')
+    .delete()
+    .eq('id', actionChannel?.channels?.id!);
+    console.log(error)
     if (error) {
       toast.error('There was a problem deleting your channel. Try again.');
+      return
     } else {
-      toast.success('Channel succesfully deleted.');
+      toast.success(`Channel ${actionChannel?.channels?.name!} succesfully deleted.`);
     }
+    deleteChannel(actionChannel?.channels?.id!);
   };
 
   return (
