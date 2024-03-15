@@ -119,9 +119,8 @@ export default function ClientMessageList() {
           flex-1 
           overflow-x-hidden 
           p-3 
-          sm:px-[10vw] 
-          md:px-[20vw] 
-          xl:px-[25vw]'
+          md:px-20
+          lg:px-[calc(50vw-400px)]'
         ref={scrollRef}
         onScroll={handleOnScroll}
       >
