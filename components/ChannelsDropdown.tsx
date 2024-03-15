@@ -1,5 +1,7 @@
 'use client';
 
+import { cn } from '@/lib/utils';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,8 +26,9 @@ import { useUser } from '@/lib/store/user';
 
 interface ChannelsDropdownProps {
   members: IMember[];
+  className?: string | undefined;
 }
-export default function ChannelsDropdown({ members }: ChannelsDropdownProps) {
+export default function ChannelsDropdown({ members, className }: ChannelsDropdownProps) {
   const setActionChannel = useMember((state) => state.setActionChannel);
   const user = useUser((state) => state.user)
 

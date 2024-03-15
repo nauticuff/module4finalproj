@@ -8,6 +8,7 @@ import InitUser from '@/lib/store/InitUser';
 import { supabaseServer } from '@/lib/supabase/server';
 
 import type { Metadata } from 'next';
+import Sidebar from '@/components/Sidebar';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
+        <div className='flex flex-col sm:flex-row h-screen'>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
@@ -33,13 +35,15 @@ export default async function RootLayout({
           disableTransitionOnChange
           storageKey='supachat-theme'
         >
+          <Sidebar />
           {children}
           <Toaster richColors position='top-center' />
           {/* This is only to check if there is a user
               on the client side only.
-          */}
+            */}
           <InitUser user={data.user} />
         </ThemeProvider>
+        </div>
       </body>
     </html>
   );

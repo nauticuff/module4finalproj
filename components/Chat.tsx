@@ -1,6 +1,6 @@
 'use client'
 
-import Header from '@/components/Header';
+import Sidebar from '@/components/Sidebar';
 
 interface ChatProps {
   children: React.ReactNode;
@@ -9,9 +9,9 @@ interface ChatProps {
 export default function Chat({ children }: ChatProps) {
 
   return (
-    <div className='h-screen bg-neutral-900'>
-      <div className='relative flex h-full flex-col'>
-        <Header />
+    <div className='bg-neutral-900'>
+      <div className='relative flex'>
+        {/* <Sidebar /> */}
         <main className='flex flex-1 flex-col overflow-y-auto'>
           {children}
         </main>

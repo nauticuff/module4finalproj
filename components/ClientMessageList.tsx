@@ -114,13 +114,7 @@ export default function ClientMessageList() {
   return (
     <>
       <div
-        className='
-          w-full 
-          flex-1 
-          overflow-x-hidden 
-          p-3 
-          md:px-20
-          lg:px-[calc(50vw-400px)]'
+        className='w-full flex-1 overflow-x-hidden p-3 md:px-14 lg:px-[calc(50vw-400px)]'
         ref={scrollRef}
         onScroll={handleOnScroll}
       >

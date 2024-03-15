@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-3 w-full h-full'>
       <div>This is the channel id: {data[0].id}</div>
       <div>This is the channel name: {data[0].channels?.name}</div>
       <div>

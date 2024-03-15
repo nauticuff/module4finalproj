@@ -82,20 +82,20 @@ export function NewChannelDialog() {
       <DialogTrigger asChild>
         <button className='hidden' id='create-new-channel'></button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className='max-w-[300px] sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Create new channel.</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <div className='grid gap-4 py-4'>
-          <div className='grid grid-cols-4 items-center gap-4'>
-            <Label htmlFor='name' className='text-right'>
+          <div className='sm:grid sm:grid-cols-4 items-center gap-4'>
+            <Label htmlFor='name' className='text-right hidden sm:block'>
               Name
             </Label>
             <Input
               id='name'
               placeholder='channel name'
-              className='col-span-3'
+              className='col-span-3 w-full'
               autoComplete='off'
               onChange={(e) => setChannel(e.target.value)}
             />
