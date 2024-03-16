@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Sidebar from '@/components/Sidebar';
 
@@ -7,15 +7,9 @@ interface ChatProps {
 }
 
 export default function Chat({ children }: ChatProps) {
-
   return (
-    <div className='bg-neutral-900'>
-      <div className='relative flex'>
-        {/* <Sidebar /> */}
-        <main className='flex flex-1 flex-col overflow-y-auto'>
-          {children}
-        </main>
-      </div>
+    <div className='flex flex-1 flex-col overflow-y-auto bg-neutral-900'>
+      <main className='flex flex-col overflow-y-auto'>{children}</main>
     </div>
   );
 }

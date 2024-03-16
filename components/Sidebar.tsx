@@ -26,7 +26,7 @@ import {
   SheetTrigger,
 } from './ui/sheet';
 import { MenuIcon } from 'lucide-react';
-
+// import Link from 'next/link';
 export default function Sidebar() {
   const router = useRouter();
   const {
@@ -144,19 +144,19 @@ export default function Sidebar() {
     <>
       <nav className='Xlg:px-8 X2xl:px-[10%] flex w-full items-center justify-between gap-10 border-b border-neutral-800 bg-background px-5 py-3 sm:w-60 sm:flex-col sm:items-start sm:justify-normal'>
         <div className='flex flex-col gap-1'>
-          <h1 className='text-gray-100'>
+          <Link href='/' className='text-gray-100'>
             Supa<span className='font-bold text-primary'>Chat</span>
-          </h1>
+          </Link>
           <ChatPresence />
         </div>
         <div className='flex sm:w-full sm:flex-1 sm:flex-col'>
           {user ? (
             <>
               <Sheet>
-                <SheetTrigger className='sm:hidden'>
+                <SheetTrigger className='sm:hidden' aria-label='open menu'>
                   <MenuIcon />
                 </SheetTrigger>
-                <SheetContent side='left' className='flex flex-col pt-20'>
+                <SheetContent side='right' className='flex flex-col pt-20'>
                   <div className='flex flex-1 flex-col gap-2 sm:w-full'>
                     <ChannelsDropdown className='' members={members} />
                     <Button

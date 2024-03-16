@@ -9,6 +9,10 @@ import { supabaseServer } from '@/lib/supabase/server';
 
 import type { Metadata } from 'next';
 import Sidebar from '@/components/Sidebar';
+import { DeleteAlert, EditAlert } from '@/components/MessageDialogues';
+import { DeleteChannelAlert } from '@/components/ChannelDialogues';
+import { NewChannelDialog } from '@/components/NewChannelDialog';
+import InitMembers from '@/lib/store/InitMembers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -24,25 +28,35 @@ export default async function RootLayout({
   const supabase = supabaseServer();
   const { data } = await supabase.auth.getUser();
 
+  const { data: memberData } = await supabase
+    .from('members')
+    .select('*, channels(*)')
+    .eq('user_id', data.user?.id!);
+
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <div className='flex flex-col sm:flex-row h-screen'>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'
-          enableSystem
-          disableTransitionOnChange
-          storageKey='supachat-theme'
-        >
-          <Sidebar />
-          {children}
-          <Toaster richColors position='top-center' />
-          {/* This is only to check if there is a user
+      <body className={`${inter.className} h-screen`}>
+        <div className='flex h-full flex-col sm:flex-row'>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='dark'
+            enableSystem
+            disableTransitionOnChange
+            storageKey='supachat-theme'
+          >
+            <Sidebar />
+            {children}
+            <Toaster richColors position='top-center' />
+            {/* This is only to check if there is a user
               on the client side only.
             */}
-          <InitUser user={data.user} />
-        </ThemeProvider>
+            <InitUser user={data.user} />
+            <InitMembers members={memberData || []} />
+            <DeleteAlert />
+            <EditAlert />
+            <DeleteChannelAlert />
+            <NewChannelDialog />
+          </ThemeProvider>
         </div>
       </body>
     </html>

@@ -135,10 +135,10 @@ export default function ClientMessageList() {
         ) : (
           <MessagesSkeleton />
         )}
-        <DeleteAlert />
+        {/* <DeleteAlert />
         <EditAlert />
         <DeleteChannelAlert />
-        <NewChannelDialog />
+        <NewChannelDialog /> */}
       </div>
       <ChatInput
         userProp={user}
